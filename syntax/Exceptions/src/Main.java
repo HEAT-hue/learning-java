@@ -1,37 +1,18 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
 public class Main {
-
-    public static void method1() {
-        method2();
-        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-
-        String name = stackTraceElements[1].getMethodName();
-
-        System.out.println(name);
-    }
-
-    public static void method2() {
-        method3();
-        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-
-        String name = stackTraceElements[1].getMethodName();
-
-        System.out.println(name);
-    }
-
-    public static void method3() {
-        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-
-        String name = stackTraceElements[1].getMethodName();
-
-        System.out.println(name);
-    }
-
     public static void main(String[] args) {
-        method1();
-        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        try {
+            divideByZero();
+        } catch (ArithmeticException e) {
+            e.printStackTrace();
+        }
+    }
 
-        String name = stackTraceElements[1].getMethodName();
-
-        System.out.println(name);
+    public static void divideByZero() {
+        int e = 4 / 0;
     }
 }
