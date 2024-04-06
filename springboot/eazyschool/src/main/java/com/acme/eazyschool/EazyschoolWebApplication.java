@@ -9,5 +9,4 @@ public class EazyschoolWebApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EazyschoolWebApplication.class, args);
 	}
-
 }
