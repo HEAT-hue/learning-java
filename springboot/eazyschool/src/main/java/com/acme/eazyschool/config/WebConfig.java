@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /*
  * Register view controllers that create a direct mapping between the URL and the view name
- * Add views here that necessarily don't have business logic
+ * Add views here that necessarily don't have business logic. This saves you from creating controllers for each view
  *
  * */
 
