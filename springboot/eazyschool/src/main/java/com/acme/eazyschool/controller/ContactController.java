@@ -42,6 +42,9 @@ public class ContactController {
             return "contact.html";
         }
 
+        // Increment counter service
+        contactService.setCounter(contactService.getCounter() + 1);
+
         // save message details
         contactService.saveMessageDetails(contact);
 
