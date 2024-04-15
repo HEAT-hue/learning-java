@@ -1,4 +1,3 @@
-
 package com.acme.eazyschool.config;
 
 import org.springframework.context.annotation.Bean;
@@ -12,13 +11,17 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         // Permit all requests inside the web application
         // Breakdown endpoints for ease access
         http
                 // Disable csrf i.e. enabled by default
-                .csrf(csrf -> csrf.disable())
+                // .csrf(csrf -> csrf.disable())
+
+                // Disable csrf for this endpoint
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg"))
 
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/home").permitAll()
@@ -28,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/saveMsg").permitAll()
                         .requestMatchers("/courses").permitAll()
                         .requestMatchers("/about").permitAll()
+                        .requestMatchers("/logout").permitAll()
                         .requestMatchers("/assets/**").permitAll())
 
                 // Customize form login behaviour
@@ -35,20 +39,21 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .defaultSuccessUrl("/dashboard")
                         .failureUrl("/login?error=true")
-                        // Permit all is added for user to be able to access protected resource
+
+                        // Allow visibility of login  endpoints.
                         .permitAll())
 
-                // Customize form logout behaviour
-                .logout(logoutConfigurer -> logoutConfigurer
-                        // Logout url
-                        .logoutSuccessUrl("/login?logout=true")
-
-                        // Invalidate http session
-                        .invalidateHttpSession(true)
-
-                        // Allow visibility of logout endpoints
-                        .permitAll()
-                )
+//                // Customize form logout behaviour implemented in controller class
+//                .logout(logoutConfigurer -> logoutConfigurer
+//                        // Logout url
+//                        .logoutSuccessUrl("/login?logout=true")
+//
+//                        // Invalidate http session
+//                        .invalidateHttpSession(true)
+//
+//                        // Allow visibility of logout endpoints
+//                        .permitAll()
+//                )
 
                 .httpBasic(Customizer.withDefaults());
 

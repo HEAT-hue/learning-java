@@ -7,9 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /*
-* authentication object contains info about the currently logged-in user
-* */
-
+ * authentication object contains info about the currently logged-in user
+ * */
 
 @Slf4j          // Logging
 @Controller     // Controller for returning views
