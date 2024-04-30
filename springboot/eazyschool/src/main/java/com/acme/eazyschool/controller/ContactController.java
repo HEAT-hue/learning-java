@@ -38,14 +38,10 @@ public class ContactController {
 
         // Check if any error exist
         if (error.hasErrors()) {
-            log.error("Contact form validation failed due to: " + error.toString());
+            log.error("Contact form validation failed due to: {}", error.toString());
             return "contact.html";
         }
-
-        // Increment counter service
-        contactService.setCounter(contactService.getCounter() + 1);
-
-        // save message details
+        // save message details - handling business logic
         contactService.saveMessageDetails(contact);
 
         // Redirect user to contact

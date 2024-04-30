@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 exceptions across the whole application in one global handling component. It can be viewed
 as an interceptor of exceptions thrown by methods annotated with @RequestMapping and similar.
 * */
-
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionController {
@@ -20,14 +19,23 @@ public class GlobalExceptionController {
     exception type, so that ControllerAdvice can invoke this method
     logic if a given exception type is thrown inside the web application.
     Here you specify which type of exception to handle. In this case, instances of Exception class
+
+    @param exception: Get exception details
     * */
     @ExceptionHandler(Exception.class)
     public ModelAndView exceptionHandler(Exception exception) {
+        // Create an error page for exceptions that occurred in the server in the server
         var errorPage = new ModelAndView();
+
+        // Get error message about the exception
         final String errorMessage = "General error: " + exception.getMessage();
 
         errorPage.setViewName("error");
+
+        // Add error message object to view
         errorPage.addObject("errorMsg", errorMessage);
+
+        // LOG ERROR MESSAGE TO THE SERVER
         log.error(errorMessage);
         return errorPage;
     }
