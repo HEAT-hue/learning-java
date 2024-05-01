@@ -13,7 +13,7 @@ import java.time.Instant;
 
 @Slf4j
 @Aspect
-@Component
+//@Component
 public class LoggerAspect {
 
     //    Executed for all classes available in this package
