@@ -39,7 +39,7 @@ public class HolidaysController {
                 new Holiday(" Sep 5 ", "Labor Day", Holiday.Type.FEDERAL),
                 new Holiday(" Nov 11 ", "Veterans Day", Holiday.Type.FEDERAL));
 
-        // Get values of enum
+        // Get values of enum = FEDERAL, FESTIVAL,...
         Holiday.Type[] types = Holiday.Type.values();
 
         // Loop through holidays and filter each one based on the value
