@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class HolidaysController {
@@ -39,14 +40,17 @@ public class HolidaysController {
         }
 
         // Fetch holidays from DB
-        List<Holiday> holidays = holidayRepository.findAllHolidays();
+        Iterable<Holiday> holidays = holidayRepository.findAll();
+
+        // Convert iterable to list
+        List<Holiday> holidayList = StreamSupport.stream(holidays.spliterator(), false).toList();
 
         // Get values of enum = FEDERAL, FESTIVAL,...
         Holiday.Type[] types = Holiday.Type.values();
 
         // Loop through holidays and filter each one based on the value
         for (Holiday.Type type : types) {
-            model.addAttribute(type.toString(), holidays.stream().filter(holiday -> holiday.getType().equals(type)).collect(Collectors.toList()));
+            model.addAttribute(type.toString(), holidayList.stream().filter(holiday -> holiday.getType().equals(type)).toList());
         }
 
         return "holidays.html";

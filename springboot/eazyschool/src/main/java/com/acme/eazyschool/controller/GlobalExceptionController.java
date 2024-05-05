@@ -28,7 +28,7 @@ public class GlobalExceptionController {
         var errorPage = new ModelAndView();
 
         // Get error message about the exception
-        final String errorMessage = "General error: " + exception.getMessage();
+        final String errorMessage = "General error: " + exception.getMessage() + exception.getCause();
 
         errorPage.setViewName("error");
 

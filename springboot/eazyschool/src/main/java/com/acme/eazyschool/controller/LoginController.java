@@ -16,15 +16,23 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
     @RequestMapping(path = "/login", method = {RequestMethod.GET, RequestMethod.POST})
-    public String displayLoginPage(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Model model) {
+    public String displayLoginPage(
+            @RequestParam(required = false) String error,
+            @RequestParam(required = false) String logout,
+            @RequestParam(required = false) String register,
+            Model model)
+    {
         String errorMessage = null;
 
         if (error != null) {
             errorMessage = "Username or Password is incorrect!!";
         }
 
-        if (logout != null) {
+        else if (logout != null) {
             errorMessage = "You have been successfully logged out !!";
+        }
+        else if (register != null) {
+            errorMessage = "Your registration is successful, Login with registered credentials";
         }
 
         model.addAttribute("errorMessage", errorMessage);

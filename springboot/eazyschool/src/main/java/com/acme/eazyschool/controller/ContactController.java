@@ -41,7 +41,7 @@ public class ContactController {
     @PostMapping("/saveMsg")
     public String saveMessage(@Valid @ModelAttribute("contact") Contact contact, Errors error) {
 
-        // Check if any error exist
+        // Check if any error exist and return them to the UI
         if (error.hasErrors()) {
             log.error("Contact form validation failed due to: {}", error.toString());
             return "contact.html";
@@ -68,12 +68,9 @@ public class ContactController {
     }
 
     @GetMapping("/closeMsg")
-    public String closeMessage(@RequestParam int id, Authentication authentication) {
-        // Get auth details
-        String name = authentication.getName();
-
+    public String closeMessage(@RequestParam int id) {
         // Update message status in DB
-        var messageUpdated = contactService.updateMsgStatus(id, EazySchoolConstants.CLOSE, name);
+        var messageUpdated = contactService.updateMsgStatus(id, EazySchoolConstants.CLOSE);
 
         if (messageUpdated) {
             // Redirect to display messages

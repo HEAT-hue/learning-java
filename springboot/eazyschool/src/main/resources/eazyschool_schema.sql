@@ -1,3 +1,9 @@
+-- Create database schema
+create database eazyschool;
+
+-- Always use this schema only
+use eazyschool;
+
 CREATE TABLE IF NOT EXISTS `contact_msg` (
   `contact_id` int AUTO_INCREMENT  PRIMARY KEY,
   `name` varchar(100) NOT NULL,

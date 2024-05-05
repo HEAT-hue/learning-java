@@ -13,6 +13,7 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j      // Logging
 @Service    // Generate a bean tho just a stereotype for Holding business logic
@@ -33,13 +34,11 @@ public class ContactService {
 
         // Prepare contact object
         contact.setStatus(EazySchoolConstants.OPEN);
-        contact.setCreatedBy(EazySchoolConstants.ANONYMOUS);
-        contact.setCreatedAt(LocalDateTime.now());
 
         // Save contact
-        int result = contactRepository.saveContactMsg(contact);
+        Contact savedContact = contactRepository.save(contact);
 
-        if (result > 0) {
+        if (null != savedContact && savedContact.getContactId() > 0) {
             isSaved = true;
         }
 
@@ -48,17 +47,27 @@ public class ContactService {
 
     //    Fetch all messages with open status
     public List<Contact> findMsgsWithOpenStatus() {
-        List<Contact> contactMsgs = contactRepository.findMsgWithStatus(EazySchoolConstants.OPEN);
+        List<Contact> contactMsgs = contactRepository.findByStatus(EazySchoolConstants.OPEN);
         return contactMsgs;
     }
 
     //  Update status of message in DB
-    public boolean updateMsgStatus(int id, String status, String updatedBy) {
+    public boolean updateMsgStatus(int contactId, String status) {
         boolean isUpdated = false;
 
-        var queryResult = contactRepository.updateMsgStatus(id, status, updatedBy);
+        // Fetch current contact
+        Optional<Contact> contact = contactRepository.findById(contactId);
 
-        if (queryResult > 0) {
+        // Update contact if present
+        contact.ifPresent(contact1 -> {
+            contact1.setStatus(status);
+        });
+
+        // Save contact
+
+        Contact savedContact = contactRepository.save(contact.get());
+
+        if (null != savedContact && null != savedContact.getUpdatedBy()) {
             isUpdated = true;
         }
 

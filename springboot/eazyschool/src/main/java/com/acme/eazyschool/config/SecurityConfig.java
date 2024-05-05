@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -31,14 +30,14 @@ public class SecurityConfig {
                 // Disable csrf for this endpoint
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/saveMsg")
-                        .ignoringRequestMatchers(PathRequest.toH2Console()))
+                        .ignoringRequestMatchers("/public/**")
+                )
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(mvcMatcherBuilder.pattern("/dashboard")).authenticated()
                         .requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN")
                         .requestMatchers(mvcMatcherBuilder.pattern("/closeMsg/**")).hasRole("ADMIN")
                         .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
-                        .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/home")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/holidays/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/contact")).permitAll()
@@ -46,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers(mvcMatcherBuilder.pattern("/courses")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/about")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/logout")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/public/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll())
 
                 // Customize form login behaviour
@@ -67,10 +67,6 @@ public class SecurityConfig {
 
                         // Allow visibility of logout endpoints
                         .permitAll())
-
-                // Disable frames
-                .headers(header ->
-                        header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
 
                 .httpBasic(Customizer.withDefaults());
 
