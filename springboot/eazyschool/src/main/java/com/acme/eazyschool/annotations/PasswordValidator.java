@@ -16,7 +16,7 @@ public @interface PasswordValidator {
      * */
     String message() default "Please choose a strong password";
 
-    Class<?>[] group() default {};
+    Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 }

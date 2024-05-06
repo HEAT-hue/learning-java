@@ -20,18 +20,14 @@ public class LoginController {
             @RequestParam(required = false) String error,
             @RequestParam(required = false) String logout,
             @RequestParam(required = false) String register,
-            Model model)
-    {
+            Model model) {
         String errorMessage = null;
 
         if (error != null) {
             errorMessage = "Username or Password is incorrect!!";
-        }
-
-        else if (logout != null) {
+        } else if (logout != null) {
             errorMessage = "You have been successfully logged out !!";
-        }
-        else if (register != null) {
+        } else if (register != null) {
             errorMessage = "Your registration is successful, Login with registered credentials";
         }
 
@@ -43,7 +39,6 @@ public class LoginController {
 
     @GetMapping("/logout")
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("Logout endpoint hit");
 
         // Get existing Authentication details using SecurityContextHolder
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

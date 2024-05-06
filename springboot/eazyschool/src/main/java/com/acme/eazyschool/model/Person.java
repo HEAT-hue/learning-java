@@ -27,7 +27,7 @@ public class Person extends BaseEntity {
     // Mobile number
     @NotBlank(message = "Mobile number must not be blank")
     @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
-    private String mobileNum;
+    private String mobileNumber;
 
     // Email address
     @NotBlank(message = "Email must not be blank")
@@ -43,7 +43,7 @@ public class Person extends BaseEntity {
     // Password
     @NotBlank(message = "Name must not be blank")
     @Size(min = 5, message = "Name must be at least 3 characters long")
-    @PasswordValidator(message = "Password does not meet requirements")
+    @PasswordValidator(message = "Password does not meet requirements annotation")
     private String password;
 
     // Password
