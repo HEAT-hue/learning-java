@@ -4,6 +4,7 @@ import com.acme.eazyschool.model.Person;
 import com.acme.eazyschool.service.PersonService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Slf4j
+@Slf4j      // Logging
 @Controller
 @RequestMapping(value = "public")
 public class PublicController {
@@ -20,6 +21,7 @@ public class PublicController {
     // DI - Person service to carry our business logic related to person
     private final PersonService personService;
 
+    @Autowired
     public PublicController(PersonService personService) {
         this.personService = personService;
     }

@@ -16,6 +16,8 @@ public class PersonService {
     public boolean createNewPerson(Person person) {
         boolean isSaved = false;
 
+        System.out.println(person.toString());
+
         // Save person object to DB
         person = personRepository.save(person);
 

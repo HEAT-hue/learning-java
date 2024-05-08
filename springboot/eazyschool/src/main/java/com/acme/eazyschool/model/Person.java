@@ -10,9 +10,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-@Data
-@Entity
-@FieldsValueMatch.List({@FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password do not match"), @FieldsValueMatch(field = "email", fieldMatch = "confirmEmail", message = "Email addresses do not match")})
+@Data                           // Add getters and setters implicitly
+@Entity                         // map variables to column names
+@FieldsValueMatch.List({
+        @FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password do not match"),
+        @FieldsValueMatch(field = "email", fieldMatch = "confirmEmail", message = "Email addresses do not match")
+})
 public class Person extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
