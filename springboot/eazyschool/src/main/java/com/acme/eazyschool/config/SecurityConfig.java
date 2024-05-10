@@ -1,13 +1,11 @@
 package com.acme.eazyschool.config;
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
@@ -28,31 +26,12 @@ public class SecurityConfig {
                 // .csrf(csrf -> csrf.disable())
 
                 // Disable csrf for this endpoint
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/saveMsg")
-                        .ignoringRequestMatchers("/public/**")
-                )
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers("/public/**"))
 
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(mvcMatcherBuilder.pattern("/dashboard")).authenticated()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN")
-                        .requestMatchers(mvcMatcherBuilder.pattern("/closeMsg/**")).hasRole("ADMIN")
-                        .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/home")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/holidays/**")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/contact")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/saveMsg")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/courses")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/about")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/logout")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/public/**")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(mvcMatcherBuilder.pattern("/dashboard")).authenticated().requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN").requestMatchers(mvcMatcherBuilder.pattern("/closeMsg/**")).hasRole("ADMIN").requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/home")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/holidays/**")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/contact")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/saveMsg")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/courses")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/about")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/logout")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/public/**")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll())
 
                 // Customize form login behaviour
-                .formLogin(loginConfigurer -> loginConfigurer
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/dashboard")
-                        .failureUrl("/login?error=true")
+                .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true")
 
                         // Allow visibility of login  endpoints.
                         .permitAll())
@@ -73,21 +52,27 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Create in memory user details manager
+    // Generate a hash value that will be generated when user is registering or logging in.
     @Bean
-    public InMemoryUserDetailsManager userDetailsManager() {
-        UserDetails user = User
-                .withDefaultPasswordEncoder()
-                .username("user")
-                .password("12345")
-                .roles("USER").build();
-
-        UserDetails admin = User
-                .withDefaultPasswordEncoder()
-                .username("admin")
-                .password("12345")
-                .roles("ADMIN").build();
-
-        return new InMemoryUserDetailsManager(user, admin);
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
+
+    // Create in memory user details manager
+//    @Bean
+//    public InMemoryUserDetailsManager userDetailsManager() {
+//        UserDetails user = User
+//                .withDefaultPasswordEncoder()
+//                .username("user")
+//                .password("12345")
+//                .roles("USER").build();
+//
+//        UserDetails admin = User
+//                .withDefaultPasswordEncoder()
+//                .username("admin")
+//                .password("12345")
+//                .roles("ADMIN").build();
+//
+//        return new InMemoryUserDetailsManager(user, admin);
+//    }
 }

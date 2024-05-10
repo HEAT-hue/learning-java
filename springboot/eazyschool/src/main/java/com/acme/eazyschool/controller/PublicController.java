@@ -45,13 +45,15 @@ public class PublicController {
         }
 
         // NO errors found in creating person
-        boolean createPersonResult = personService.createNewPerson(person);
+        boolean isPersonCreated = personService.createNewPerson(person);
 
-        if (createPersonResult) {
-            return "redirect:login?register=true";
+        System.out.println(isPersonCreated);
+
+        if (isPersonCreated) {
+            return "redirect:/login?register=true";
         }
 
         // return failed registration link
-        return "redirect:login?register=false";
+        return "register.html";
     }
 }

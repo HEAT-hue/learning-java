@@ -12,10 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Data                           // Add getters and setters implicitly
 @Entity                         // map variables to column names
-@FieldsValueMatch.List({
-        @FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password do not match"),
-        @FieldsValueMatch(field = "email", fieldMatch = "confirmEmail", message = "Email addresses do not match")
-})
+@FieldsValueMatch.List({@FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password do not match"), @FieldsValueMatch(field = "email", fieldMatch = "confirmEmail", message = "Email addresses do not match")})
 public class Person extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -29,7 +26,7 @@ public class Person extends BaseEntity {
 
     // Mobile number
     @NotBlank(message = "Mobile number must not be blank")
-    @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
+    @Pattern(regexp = "(^$|[0-9]{11})", message = "Mobile number must be 11 digits")
     private String mobileNumber;
 
     // Email address
@@ -44,14 +41,25 @@ public class Person extends BaseEntity {
     private String confirmEmail;
 
     // Password
-    @NotBlank(message = "Name must not be blank")
-    @Size(min = 5, message = "Name must be at least 3 characters long")
+    @NotBlank(message = "Password must not be blank")
+    @Size(min = 5, message = "Password must be at least 3 characters long")
     @PasswordValidator(message = "Password does not meet requirements annotation")
     private String password;
 
-    // Password
-    @NotBlank(message = "Name must not be blank")
-    @Size(min = 5, message = "Name must be at least 3 characters long")
+    // Confirm Password
+    @NotBlank(message = "Confirm Password must not be blank")
+    @Size(min = 5, message = "Confirm must be at least 3 characters long")
     @Transient                                                  // Don't persist field
     private String confirmPassword;
+
+    // Foreign key relationship establishment
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Address.class)
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
+    private Address address;
+
+    // Foreign key relationship establishment
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
+    private Roles role;
+
 }

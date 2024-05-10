@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HolidayRepository extends CrudRepository<Holiday, String> {
-
+    // Add derived classes here
 }
