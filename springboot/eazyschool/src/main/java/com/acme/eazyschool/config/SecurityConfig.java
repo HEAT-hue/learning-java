@@ -28,7 +28,20 @@ public class SecurityConfig {
                 // Disable csrf for this endpoint
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers("/public/**"))
 
-                .authorizeHttpRequests(auth -> auth.requestMatchers(mvcMatcherBuilder.pattern("/dashboard")).authenticated().requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN").requestMatchers(mvcMatcherBuilder.pattern("/closeMsg/**")).hasRole("ADMIN").requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/home")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/holidays/**")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/contact")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/saveMsg")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/courses")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/about")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/logout")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/public/**")).permitAll().requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll())
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers(mvcMatcherBuilder.pattern("/dashboard"))
+                                .authenticated().requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN")
+                                .requestMatchers(mvcMatcherBuilder.pattern("/closeMsg/**")).hasRole("ADMIN")
+                                .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/home")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/holidays/**")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/contact")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/saveMsg")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/courses")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/about")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/logout")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/public/**")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll())
 
                 // Customize form login behaviour
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true")
@@ -57,22 +70,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    // Create in memory user details manager
-//    @Bean
-//    public InMemoryUserDetailsManager userDetailsManager() {
-//        UserDetails user = User
-//                .withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("12345")
-//                .roles("USER").build();
-//
-//        UserDetails admin = User
-//                .withDefaultPasswordEncoder()
-//                .username("admin")
-//                .password("12345")
-//                .roles("ADMIN").build();
-//
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
 }

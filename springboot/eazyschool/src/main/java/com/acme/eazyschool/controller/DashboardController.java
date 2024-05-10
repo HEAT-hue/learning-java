@@ -20,4 +20,5 @@ public class DashboardController {
         model.addAttribute("roles", authentication.getAuthorities().toString());
         return "dashboard.html";
     }
+
 }
