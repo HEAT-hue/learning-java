@@ -30,8 +30,11 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(mvcMatcherBuilder.pattern("/dashboard"))
-                                .authenticated().requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN")
+                                .authenticated()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/closeMsg/**")).hasRole("ADMIN")
+                                .requestMatchers(mvcMatcherBuilder.pattern("/displayProfile")).authenticated()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/updateProfile")).authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/home")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/holidays/**")).permitAll()

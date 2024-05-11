@@ -42,7 +42,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
         // Check if person exists in the DB, and validate password
         if (null != person && person.getPersonId() > 0 && passwordEncoder.matches(password, person.getPassword())) {
-            return new UsernamePasswordAuthenticationToken(person.getName(), null, getGrantedAuthorities(person.getRole()));
+            return new UsernamePasswordAuthenticationToken(email, null, getGrantedAuthorities(person.getRole()));
         }
         throw new BadCredentialsException("Invalid credentials");
     }

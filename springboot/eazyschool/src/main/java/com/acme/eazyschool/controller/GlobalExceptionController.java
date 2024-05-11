@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
+
 /*
 @ControllerAdvice is a specialization of the @Component annotation which allows to handle
 exceptions across the whole application in one global handling component. It can be viewed

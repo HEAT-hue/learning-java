@@ -1,23 +1,17 @@
 package com.acme.eazyschool.model;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 
+/*
+ * This class serves to update respective Person and Address Tables
+ * */
 @Data
-@Entity
 public class Profile {
-    @Id                                 // Act as primary key
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    // Auto increment based on DB increment feat
-    @GenericGenerator(name = "native")
-    @Column(name = "profile_id")
-    private String profileId;
-
+    //    private String profileId;
     // Name
     @NotBlank(message = "Name must not be blank")
     @Size(min = 3, message = "Name must be at least 3 characters long")
@@ -36,9 +30,9 @@ public class Profile {
     // Email address
     @NotBlank(message = "Address1 must not be blank")
     @Size(min = 5, message = "Address1 must be at least 3 characters long")
-    private Address address1;
+    private String address1;
 
-    private Address address2;
+    private String address2;
 
     // City
     @NotBlank(message = "City must not be blank")
@@ -53,5 +47,5 @@ public class Profile {
     // Mobile number
     @NotBlank(message = "Zip code must not be blank")
     @Pattern(regexp = "(^$|[0-9]{5})", message = "Zip code must be digits")
-    private int zipCode;
+    private String zipCode;
 }

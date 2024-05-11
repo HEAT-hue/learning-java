@@ -39,6 +39,5 @@ public class Address extends BaseEntity {
     // Zip code
     @NotBlank(message = "Zip code must not be blank")
     @Pattern(regexp = "(^$|[0-9]{5})", message = "Zip must be 10 digits")
-    private int zipCode;
-
+    private String zipCode;
 }
