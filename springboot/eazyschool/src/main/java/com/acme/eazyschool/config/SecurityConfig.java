@@ -33,6 +33,7 @@ public class SecurityConfig {
                                 .authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/displayMessages")).hasRole("ADMIN")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/closeMsg/**")).hasRole("ADMIN")
+                                .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasRole("ADMIN")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/displayProfile")).authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/updateProfile")).authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()

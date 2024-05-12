@@ -1,7 +1,9 @@
 package com.acme.eazyschool.service;
 
 import com.acme.eazyschool.constants.EazySchoolConstants;
+import com.acme.eazyschool.model.Address;
 import com.acme.eazyschool.model.Person;
+import com.acme.eazyschool.model.Profile;
 import com.acme.eazyschool.model.Roles;
 import com.acme.eazyschool.repository.PersonRepository;
 import com.acme.eazyschool.repository.RolesRepository;
@@ -44,5 +46,33 @@ public class PersonService {
         }
 
         return isSaved;
+    }
+
+    public Person updatePerson(Person person, Profile profile) throws Exception {
+
+        if (null == person) {
+            return null;
+        }
+
+        // Populate Address field
+        Address address = new Address();
+        address.setAddress1(profile.getAddress1());
+        address.setAddress2(profile.getAddress2());
+        address.setCity(profile.getCity());
+        address.setState(profile.getState());
+        address.setZipCode(profile.getZipCode());
+
+        // retrieve current object
+        person.setName(profile.getName());
+        person.setMobileNumber(profile.getMobileNumber());
+        person.setEmail(profile.getEmail());
+        person.setAddress(address);
+
+        Person savedPerson = personRepository.save(person);
+
+        if (null == savedPerson) {
+            throw new Exception("Error saving person");
+        }
+        return savedPerson;
     }
 }

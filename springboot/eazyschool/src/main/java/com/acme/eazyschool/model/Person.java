@@ -62,4 +62,9 @@ public class Person extends BaseEntity {
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
     private Roles role;
 
+    // Foreign key relationship
+    // Indicates many persons can refer to a single class instance
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "class_id", referencedColumnName = "class_id", nullable = true)
+    private EazyClass eazyClass;
 }
