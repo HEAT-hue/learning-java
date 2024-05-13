@@ -47,10 +47,9 @@ public class PublicController {
         // NO errors found in creating person
         boolean isPersonCreated = personService.createNewPerson(person);
 
-        System.out.println(isPersonCreated);
-
         if (isPersonCreated) {
             return "redirect:/login?register=true";
+//            return "redirect:/login";
         }
 
         // return failed registration link

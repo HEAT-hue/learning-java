@@ -7,10 +7,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-@Data                           // Add getters and setters implicitly
+// Add getters and setters implicitly
+@Getter
+@Setter
 @Entity                         // map variables to column names
 @FieldsValueMatch.List({@FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password do not match"), @FieldsValueMatch(field = "email", fieldMatch = "confirmEmail", message = "Email addresses do not match")})
 public class Person extends BaseEntity {

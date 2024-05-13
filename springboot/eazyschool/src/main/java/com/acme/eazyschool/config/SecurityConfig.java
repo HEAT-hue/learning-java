@@ -43,12 +43,16 @@ public class SecurityConfig {
                                 .requestMatchers(mvcMatcherBuilder.pattern("/saveMsg")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/courses")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/about")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/login")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/logout")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/public/**")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll())
 
                 // Customize form login behaviour
-                .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true")
+                .formLogin(loginConfigurer -> loginConfigurer
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/dashboard")
+                        .failureUrl("/login?error=true")
 
                         // Allow visibility of login  endpoints.
                         .permitAll())
