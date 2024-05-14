@@ -11,6 +11,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.HashSet;
+import java.util.Set;
+
 // Add getters and setters implicitly
 @Getter
 @Setter
@@ -57,6 +60,7 @@ public class Person extends BaseEntity {
 
     // Foreign key relationship establishment
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Address.class)
+    // Add an extra column in the table which will be the foreign key to the referenced column
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
 
@@ -70,4 +74,16 @@ public class Person extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "class_id", referencedColumnName = "class_id", nullable = true)
     private EazyClass eazyClass;
+
+    // Courses relationship
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "person_courses",
+            joinColumns = {
+                    @JoinColumn(name = "person_id", referencedColumnName = "personId")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "course_id", referencedColumnName = "courseId")
+            }
+    )
+    private Set<Courses> coursesSet = new HashSet<>();
 }

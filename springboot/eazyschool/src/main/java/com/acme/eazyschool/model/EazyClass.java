@@ -27,7 +27,7 @@ public class EazyClass extends BaseEntity {
 
     /*
      * @TargetEntity: Specifies what the chained entity data type is
-     * @MappedBy: Specifies the field in the child entity that owns the relationship
+     * @MappedBy: To specify the inverse side of the bidirectional relationship
      * @OneToMany specifies that an instance of this class can be referenced by more than one instance of Person
      * */
     @OneToMany(mappedBy = "eazyClass", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Person.class)
