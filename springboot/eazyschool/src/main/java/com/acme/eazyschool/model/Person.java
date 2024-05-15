@@ -77,6 +77,7 @@ public class Person extends BaseEntity {
 
     // Courses relationship
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    // Name of Intermediate table to enforce many-to-many relationships
     @JoinTable(name = "person_courses",
             joinColumns = {
                     @JoinColumn(name = "person_id", referencedColumnName = "personId")
@@ -85,5 +86,5 @@ public class Person extends BaseEntity {
                     @JoinColumn(name = "course_id", referencedColumnName = "courseId")
             }
     )
-    private Set<Courses> coursesSet = new HashSet<>();
+    private Set<Courses> courses = new HashSet<>();
 }

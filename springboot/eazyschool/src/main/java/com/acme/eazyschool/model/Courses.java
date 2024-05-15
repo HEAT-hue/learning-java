@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class Courses {
+public class Courses extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native")
@@ -21,6 +21,6 @@ public class Courses {
 
     private String fees;
 
-    @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private Set<Person> personSet = new HashSet<>();
+    @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Person> persons = new HashSet<>();
 }
