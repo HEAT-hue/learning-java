@@ -16,6 +16,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -284,6 +285,7 @@ public class AdminController {
 
     @PostMapping("/addStudentToCourse")
     public ModelAndView addStudentToCourse(@ModelAttribute("person") Person person, HttpSession session) {
+
         ModelAndView modelAndView = new ModelAndView();
 
         // Retrieve course
@@ -311,6 +313,39 @@ public class AdminController {
         coursesRepository.save(course);
 
         // Update session with latest course
+        session.setAttribute("courses", course);
+
+        // Redirect to view students
+        modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId());
+        return modelAndView;
+    }
+
+    @GetMapping("/deleteStudentFromCourse")
+    public ModelAndView deleteStudentFromCourse(@RequestParam("personId") int personId, HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        // Find person
+        Optional<Person> personEntity = personRepository.findById(personId);
+
+        Courses course = (Courses) session.getAttribute("course");
+
+        // Check if person is found
+        if (!personEntity.isPresent()) {
+            String errorMessage = "Person not found!";
+            modelAndView.addObject("errorMessage", errorMessage);
+            modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId() + "&error=true");
+            return modelAndView;
+        }
+
+        // Remove course from person's list
+        personEntity.get().getCourses().remove(course);
+        personRepository.save(personEntity.get());
+
+        // Remove person from courses list
+        course.getPersons().remove(personEntity.get());
+
+
+        // Save new modified course to session
         session.setAttribute("courses", course);
 
         // Redirect to view students
