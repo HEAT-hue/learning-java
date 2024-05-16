@@ -39,8 +39,10 @@ public class AdminController {
         // Get all classes
         List<EazyClass> eazyClasses = eazyClassRepository.findAll();
 
+        // Create new model
         ModelAndView model = new ModelAndView("classes.html");
 
+        // Add list of classes to model
         model.addObject("eazyClasses", eazyClasses);
 
         // Add empty POJO object to create new class
@@ -49,25 +51,41 @@ public class AdminController {
         return model;
     }
 
+    // Add new class
     @PostMapping("/addNewClass")
-    public String addNewClass(@Valid @ModelAttribute EazyClass eazyClass, Errors errors) throws Exception {
+    public ModelAndView addNewClass(@Valid @ModelAttribute EazyClass eazyClass, Errors errors) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        // Errors generated from bean validation
         if (errors.hasErrors()) {
-            return "classes.html";
+            modelAndView.setViewName("classes.html");
+            return modelAndView;
         }
 
         // Save new class
         Optional<EazyClass> savedClass = Optional.of(eazyClassRepository.save(eazyClass));
 
         if (savedClass.isPresent()) {
-            return "redirect:/admin/displayClasses";
+            modelAndView.setViewName("redirect:/admin/displayClasses");
+            return modelAndView;
         }
 
         throw new Exception("Error saving class");
     }
 
+    // Delete class
     @GetMapping("/deleteClass")
-    public String deleteClass(@RequestParam int id) {
+    public ModelAndView deleteClass(@RequestParam int id) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        // Fetch the classhttps://github.com/eazybytes/spring/tree/3.1.2/example_42/src/main/java/com/eazybytes/eazyschool/controll
         Optional<EazyClass> eazyClass = eazyClassRepository.findById(id);
+
+        // NO ID found, refresh page
+        if (eazyClass.isEmpty()) {
+            modelAndView.setViewName("redirect:/admin/displayClasses");
+            return modelAndView;
+        }
 
         // Remove all references to this class in each person entity
         // Because of the Optional class, to get actual class, we need to use .get()
@@ -78,7 +96,8 @@ public class AdminController {
 
         // Delete eazy class
         eazyClassRepository.deleteById(id);
-        return "redirect:/admin/displayClasses";
+        modelAndView.setViewName("redirect:/admin/displayClasses");
+        return modelAndView;
     }
 
     // Display student
@@ -101,7 +120,7 @@ public class AdminController {
             modelAndView.addObject("errorMessage", errorMessage);
             return modelAndView;
         }
-        System.out.println("We can view students here easily");
+
         modelAndView.addObject("eazyClass", eazyClass.get());
 
         // Add eazyClass object to session to be retrieved in another method controller (AddStudent)
@@ -185,7 +204,7 @@ public class AdminController {
         // Add course POJO object to get fields
         modelAndView.addObject("course", new Courses());
 
-        // Fetch list pf courses
+        // Fetch list of courses
         List<Courses> courses = coursesRepository.findAll();
         modelAndView.addObject("courses", courses);
         return modelAndView;
@@ -210,6 +229,21 @@ public class AdminController {
     public ModelAndView deleteCourse(@RequestParam("id") int courseId) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
 
+        // Fetch course
+        Optional<Courses> courseEntity = coursesRepository.findById(courseId);
+
+        // If person not found
+        if (!courseEntity.isPresent()) {
+            modelAndView.setViewName("redirect:/admin/displayCourses");
+            return modelAndView;
+        }
+
+        // Remove course from each person instance
+        for (Person person : courseEntity.get().getPersons()) {
+            person.getCourses().remove(courseEntity.get());
+            personRepository.save(person);
+        }
+
         // Find course by ID
         coursesRepository.deleteById(courseId);
 
@@ -226,7 +260,6 @@ public class AdminController {
         if (error != null) {
             String errorMessage = "Invalid Email entered!";
             modelAndView.addObject("errorMessage", errorMessage);
-            return modelAndView;
         }
 
         // Fetch course
@@ -256,17 +289,20 @@ public class AdminController {
         // Retrieve course
         Courses course = (Courses) session.getAttribute("course");
 
+        System.out.println(person.getEmail());
+
         // Retrieve person object
         Person personEntity = personRepository.findByEmail(person.getEmail());
 
         if (null == personEntity) {
             String errorMessage = "Person not found!";
-            modelAndView.setViewName("redirect:/admin/viewStudents");
             modelAndView.addObject("errorMessage", errorMessage);
+            modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId() + "&error=true");
             return modelAndView;
         }
 
         // Add it in both sides of the relationship
+
         personEntity.getCourses().add(course);
         course.getPersons().add(personEntity);
 
@@ -274,7 +310,10 @@ public class AdminController {
         personRepository.save(personEntity);
         coursesRepository.save(course);
 
+        // Update session with latest course
         session.setAttribute("courses", course);
+
+        // Redirect to view students
         modelAndView.setViewName("redirect:/admin/viewStudents?id=" + course.getCourseId());
         return modelAndView;
     }
