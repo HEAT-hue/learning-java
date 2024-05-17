@@ -25,6 +25,11 @@ public class DashboardController {
         // Get Person
         Person person = personRepository.findByEmail(authentication.getName());
 
+        // display enrolled class
+        if (null != person.getEazyClass() && null != person.getEazyClass().getName()) {
+            model.addAttribute("enrolledClass", person.getEazyClass().getName());
+        }
+
         // Save person object in session
         httpSession.setAttribute("loggedInUser", person);
 

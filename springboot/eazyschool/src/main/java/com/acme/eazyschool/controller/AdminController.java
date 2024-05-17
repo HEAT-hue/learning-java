@@ -16,7 +16,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -144,7 +143,7 @@ public class AdminController {
         Optional<Person> personEntity = Optional.ofNullable(personRepository.findByEmail(personParam.getEmail()));
 
         // if person not found
-        if (!personEntity.isPresent()) {
+        if (personEntity.isEmpty()) {
             modelAndView.setViewName("redirect:/admin/displayStudents?classId=" + eazyClass.getClassId() + "&error=true");
             return modelAndView;
         }
