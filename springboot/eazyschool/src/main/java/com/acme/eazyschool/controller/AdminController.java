@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -205,7 +206,7 @@ public class AdminController {
         modelAndView.addObject("course", new Courses());
 
         // Fetch list of courses
-        List<Courses> courses = coursesRepository.findAll();
+        List<Courses> courses = coursesRepository.findAll(Sort.by("name").ascending());
         modelAndView.addObject("courses", courses);
         return modelAndView;
     }

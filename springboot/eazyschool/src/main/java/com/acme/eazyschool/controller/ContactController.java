@@ -6,14 +6,12 @@ import com.acme.eazyschool.service.ContactService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Slf4j      // Logging
 @Controller
@@ -55,15 +53,24 @@ public class ContactController {
         return "redirect:/contact";
     }
 
-    @GetMapping("/displayMessages")
-    public ModelAndView displayMessages() {
-        // Fetch messages
-        List<Contact> contactMsgs = contactService.findMsgsWithOpenStatus();
+    @RequestMapping("/displayMessages/page/{pageNumber}")
+    public ModelAndView displayMessages(@PathVariable("pageNumber") int pageNumber, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir) {
+
+        // Fetch messages based on pagination details
+        Page<Contact> contactMsgs = contactService.findMsgsWithOpenStatus(pageNumber, sortField, sortDir);
 
         // Create a model view and return page
         var modelAndView = new ModelAndView("messages.html");
 
+        // Populate pagination details
+        modelAndView.addObject("currentPage", pageNumber);
+        modelAndView.addObject("totalPages", contactMsgs.getTotalPages());
+        modelAndView.addObject("totalMsgs", contactMsgs.getTotalElements());
+        modelAndView.addObject("sortField", sortField);
+        modelAndView.addObject("sortDir", sortDir);
+        modelAndView.addObject("reverseSortDir", sortDir.equalsIgnoreCase("desc") ? "asc" : "desc");
         modelAndView.addObject("contactMsgs", contactMsgs);
+
         return modelAndView;
     }
 
@@ -74,7 +81,7 @@ public class ContactController {
 
         if (messageUpdated) {
             // Redirect to display messages
-            return "redirect:/displayMessages";
+            return "redirect:/displayMessages/page/1?sortField=name&sortDir=desc";
         }
 
         throw new Error("Error updating message status");
