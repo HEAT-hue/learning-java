@@ -6,11 +6,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "contact_msg")
-public @Data class Contact extends BaseEntity {
+public class Contact extends BaseEntity {
 
     /*
    * @NotNull: Checks if a given field is not null but allows empty values & zero elements inside collections.

@@ -50,11 +50,12 @@ public class ContactController {
         // Redirect user to contact
         // User gets new value due to no information set
         contactService.saveMessageDetails(contact);
+
         return "redirect:/contact";
     }
 
     @RequestMapping("/displayMessages/page/{pageNumber}")
-    public ModelAndView displayMessages(@PathVariable("pageNumber") int pageNumber, @RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDir) {
+    public ModelAndView displayMessages(@PathVariable(name = "pageNumber") int pageNumber, @RequestParam(name = "sortField", defaultValue = "name") String sortField, @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
 
         // Fetch messages based on pagination details
         Page<Contact> contactMsgs = contactService.findMsgsWithOpenStatus(pageNumber, sortField, sortDir);

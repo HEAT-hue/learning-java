@@ -12,8 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j      // Logging
 @Service    // Generate a bean tho just a stereotype for Holding business logic
@@ -45,12 +43,6 @@ public class ContactService {
         return isSaved;
     }
 
-    //    Fetch all messages with open status
-    public List<Contact> findMsgsWithOpenStatus() {
-        List<Contact> contactMsgs = contactRepository.findByStatus(EazySchoolConstants.OPEN);
-        return contactMsgs;
-    }
-
     // Find all messages with open status with pagination
     public Page<Contact> findMsgsWithOpenStatus(int pageNum, String sortField, String sortDir) {
         // Number of records to return per request
@@ -72,19 +64,11 @@ public class ContactService {
     public boolean updateMsgStatus(int contactId, String status) {
         boolean isUpdated = false;
 
-        // Fetch current contact
-        Optional<Contact> contact = contactRepository.findById(contactId);
+        // Update STATUS
+        int rowsAffected = contactRepository.updateMsgStatus(status, contactId);
 
-        // Update contact if present
-        contact.ifPresent(contact1 -> {
-            contact1.setStatus(status);
-        });
-
-        // Save contact
-
-        Contact savedContact = contactRepository.save(contact.get());
-
-        if (null != savedContact && null != savedContact.getUpdatedBy()) {
+        // Any changes made is an update
+        if (rowsAffected > 0) {
             isUpdated = true;
         }
 
