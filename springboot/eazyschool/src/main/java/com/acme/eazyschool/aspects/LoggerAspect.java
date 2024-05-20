@@ -6,7 +6,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -29,6 +28,7 @@ public class LoggerAspect {
         return returnObj;
     }
 
+    //      Executed when an error or exception has occurred
     @AfterThrowing(value = "execution(* com.acme.eazyschool.*.*(..))", throwing = "ex")
     public void logException(JoinPoint joinPoint, Exception ex) {
         log.error("{} An exception occurred due to {}", joinPoint.getSignature().toString(), ex.getMessage());

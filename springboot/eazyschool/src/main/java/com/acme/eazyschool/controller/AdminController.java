@@ -210,9 +210,7 @@ public class AdminController {
         modelAndView.addObject("courses", courses);
         return modelAndView;
     }
-
-
-    // Add enw course to DB
+    // Add new course to DB
     @PostMapping("/addNewCourse")
     public ModelAndView addNewCourse(@ModelAttribute("course") Courses course) {
         // Get view
@@ -254,7 +252,9 @@ public class AdminController {
     }
 
     @GetMapping("/viewStudents")
-    public ModelAndView viewStudents(@RequestParam("id") int courseId, HttpSession session, @RequestParam(required = false) String error) throws Exception {
+    public ModelAndView viewStudents(
+            @RequestParam("id") int courseId,
+            HttpSession session, @RequestParam(required = false) String error) throws Exception {
         // Set model and view
         ModelAndView modelAndView = new ModelAndView("course_students");
 

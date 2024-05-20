@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/* Implement custom authentication provider */
 @Component
 public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 

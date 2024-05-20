@@ -26,7 +26,11 @@ public class SecurityConfig {
                 // .csrf(csrf -> csrf.disable())
 
                 // Disable csrf for this endpoint
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers("/public/**"))
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/saveMsg")
+                        .ignoringRequestMatchers("/public/**")
+                        .ignoringRequestMatchers("/api/**")
+                )
 
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(mvcMatcherBuilder.pattern("/dashboard"))
@@ -34,6 +38,7 @@ public class SecurityConfig {
                                 .requestMatchers(mvcMatcherBuilder.pattern("/displayMessages/**")).hasRole("ADMIN")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/closeMsg/**")).hasRole("ADMIN")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasRole("ADMIN")
+                                .requestMatchers(mvcMatcherBuilder.pattern("/api/**")).authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/student/**")).hasRole("STUDENT")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/displayProfile")).authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/updateProfile")).authenticated()
