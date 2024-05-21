@@ -55,7 +55,7 @@ public class ContactService {
         Pageable pageable = PageRequest.of(pageNum - 1, PAGE_SIZE, sort);
 
         // Represented paginated data returned from a query | Allow navigation of result query
-        Page<Contact> messagesPage = contactRepository.findByStatus(EazySchoolConstants.OPEN, pageable);
+        Page<Contact> messagesPage = contactRepository.findByStatusWithQuery(EazySchoolConstants.OPEN, pageable);
 
         return messagesPage;
     }

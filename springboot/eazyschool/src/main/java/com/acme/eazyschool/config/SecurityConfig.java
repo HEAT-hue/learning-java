@@ -46,6 +46,7 @@ public class SecurityConfig {
                                 .requestMatchers(mvcMatcherBuilder.pattern("/home")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/holidays/**")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/contact")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/profile/**")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/saveMsg")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/courses")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/about")).permitAll()

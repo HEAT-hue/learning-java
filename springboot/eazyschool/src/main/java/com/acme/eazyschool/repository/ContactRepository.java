@@ -25,7 +25,7 @@ public interface ContactRepository extends JpaRepository<Contact, Integer> {
 
     // Pageable customized query
     @Query("SELECT c FROM Contact c WHERE c.status = :status")
-    Page<Contact> findByStatus(@Param("status") String status, Pageable pageable);
+    Page<Contact> findByStatusWithQuery(@Param("status") String status, Pageable pageable);
 
     // @Transactional: If query fails, roll back all updates made
     // @Modifying: To indicate changes being made

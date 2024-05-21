@@ -29,7 +29,6 @@ public class ContactRestController {
 
     @GetMapping("/getAllMessagesByStatus")
     public List<Contact> getAllMessagesByStatus(@RequestBody Contact contact) {
-        System.out.println(contact.toString());
         return contactRepository.findByStatus(contact.getStatus());
     }
 
@@ -37,10 +36,6 @@ public class ContactRestController {
     public ResponseEntity<Response> saveMsg(
             @RequestHeader("invocationFrom") String invocationFrom,
             @Valid @RequestBody Contact contact) {
-
-        // Log to see content of header
-        log.info(String.format("Header invocationFrom = %s", invocationFrom));
-        System.out.println(contact.toString());
 
         // Save contact
         contactRepository.save(contact);
@@ -52,7 +47,6 @@ public class ContactRestController {
                 .status(HttpStatus.CREATED)
                 .header("isMessageSaved", "true")
                 .body(response);
-
     }
 
     @DeleteMapping("/deleteMsg")
@@ -84,7 +78,6 @@ public class ContactRestController {
 
         // Successful patch
         if (rowsAffected > 0) {
-
             response.setStatusCode("200");
             response.setStatusMsg("Message status successfully updated");
             return ResponseEntity
