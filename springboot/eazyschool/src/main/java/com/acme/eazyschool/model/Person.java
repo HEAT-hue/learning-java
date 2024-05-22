@@ -2,6 +2,7 @@ package com.acme.eazyschool.model;
 
 import com.acme.eazyschool.annotations.FieldsValueMatch;
 import com.acme.eazyschool.annotations.PasswordValidator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -44,18 +45,21 @@ public class Person extends BaseEntity {
     @NotBlank(message = "Email must not be blank")
     @Email(message = "Please provide a valid email address")
     @Transient                                                    // Don't persist this field
+    @JsonIgnore
     private String confirmEmail;
 
     // Password
     @NotBlank(message = "Password must not be blank")
     @Size(min = 5, message = "Password must be at least 3 characters long")
     @PasswordValidator(message = "Password does not meet requirements annotation")
+    @JsonIgnore
     private String password;
 
     // Confirm Password
     @NotBlank(message = "Confirm Password must not be blank")
     @Size(min = 5, message = "Confirm must be at least 3 characters long")
     @Transient                                                  // Don't persist field
+    @JsonIgnore
     private String confirmPassword;
 
     // Foreign key relationship establishment
@@ -78,13 +82,6 @@ public class Person extends BaseEntity {
     // Courses relationship
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     // Name of Intermediate table to enforce many-to-many relationships
-    @JoinTable(name = "person_courses",
-            joinColumns = {
-                    @JoinColumn(name = "person_id", referencedColumnName = "personId")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "course_id", referencedColumnName = "courseId")
-            }
-    )
+    @JoinTable(name = "person_courses", joinColumns = {@JoinColumn(name = "person_id", referencedColumnName = "personId")}, inverseJoinColumns = {@JoinColumn(name = "course_id", referencedColumnName = "courseId")})
     private Set<Courses> courses = new HashSet<>();
 }

@@ -12,6 +12,10 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  data:
+    rest:
+      basePath: /dr
+
   jpa:
     show-sql: false
     properties:
