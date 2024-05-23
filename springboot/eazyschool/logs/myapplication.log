@@ -1,0 +1,27 @@
+15:56:22.098 [restartedMain] INFO  c.a.e.EazyschoolWebApplication - Starting EazyschoolWebApplication using Java 22.0.1 with PID 24054 (/home/heat/Desktop/learning/Java/springboot/eazyschool/target/classes started by heat in /home/heat/Desktop/learning/Java/springboot/eazyschool)
+15:56:22.098 [restartedMain] INFO  c.a.e.EazyschoolWebApplication - No active profile set, falling back to 1 default profile: "default"
+15:56:22.180 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+15:56:22.188 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 7 JPA repository interfaces.
+15:56:22.328 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+15:56:22.330 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+15:56:22.330 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+15:56:22.336 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+15:56:22.336 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 235 ms
+15:56:22.392 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+15:56:22.404 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@269f0541
+15:56:22.404 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+15:56:22.405 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+15:56:22.406 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000021: Encountered deprecated setting [javax.persistence.validation.mode], use [jakarta.persistence.validation.mode] instead
+15:56:22.406 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+15:56:22.408 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+15:56:22.505 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+15:56:22.505 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+15:56:22.754 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+15:56:22.983 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4581f6fa, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a8d011f, org.springframework.security.web.context.SecurityContextHolderFilter@467288d7, org.springframework.security.web.header.HeaderWriterFilter@e04d603, org.springframework.web.filter.CorsFilter@21da9f69, org.springframework.security.web.csrf.CsrfFilter@588b5ed6, org.springframework.security.web.authentication.logout.LogoutFilter@4eef2e3e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@296241d6, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@1ecb041a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@448d1321, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@34955507, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6777a49c, org.springframework.security.web.access.ExceptionTranslationFilter@119c3e81, org.springframework.security.web.access.intercept.AuthorizationFilter@7c7464f9]
+15:56:23.207 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+15:56:23.214 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+15:56:23.223 [restartedMain] INFO  c.a.e.EazyschoolWebApplication - Started EazyschoolWebApplication in 1.201 seconds (process running for 16080.375)
+15:56:23.224 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+16:01:23.103 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+16:01:23.105 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+16:01:23.113 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.

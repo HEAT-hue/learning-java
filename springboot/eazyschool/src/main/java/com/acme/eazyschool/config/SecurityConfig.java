@@ -28,8 +28,11 @@ public class SecurityConfig {
                 // Disable csrf for this endpoint
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/saveMsg")
-                        .ignoringRequestMatchers("/public/**")
+                        .ignoringRequestMatchers("/public/**")//                                .requestMatchers(mvcMatcherBuilder.pattern("/profile/**")).permitAll()
+//                                .requestMatchers(mvcMatcherBuilder.pattern("/contacts/**")).permitAll()
+//                                .requestMatchers(mvcMatcherBuilder.pattern("/courseses/**")).permitAll()
                         .ignoringRequestMatchers("/api/**")
+                        .ignoringRequestMatchers("/dr/**")
                 )
 
                 .authorizeHttpRequests(auth ->
@@ -46,10 +49,7 @@ public class SecurityConfig {
                                 .requestMatchers(mvcMatcherBuilder.pattern("/home")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/holidays/**")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/contact")).permitAll()
-                                .requestMatchers(mvcMatcherBuilder.pattern("/profile/**")).permitAll()
-                                .requestMatchers(mvcMatcherBuilder.pattern("/contacts/**")).permitAll()
-                                .requestMatchers(mvcMatcherBuilder.pattern("/courseses/**")).permitAll()
-                                .requestMatchers(mvcMatcherBuilder.pattern("/dr/**")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/dr/**")).authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/saveMsg")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/courses")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/about")).permitAll()
