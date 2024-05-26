@@ -1,11 +1,14 @@
+# Disable caching
 spring:
   thymeleaf:
     cache: false
 
+  # Enable automatic restart
   devtools:
     restart:
       enabled: true
 
+  # Database config
   datasource:
     # DATABASE connection
     url: jdbc:mysql://localhost:3306/eazyschool
@@ -13,6 +16,7 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  # Base path for HAL explorer
   data:
     rest:
       basePath: /dr
@@ -45,3 +49,11 @@ logging:
     #          aspects: ERROR
     #          controller: TRACE
     eazyschool_error: ERROR
+
+# Custom properties
+eazyschool:
+  pageSize: 5
+  contact:
+    pageSize: 5
+    successMessage: Your message is saved successfully
+  branches: NewYork, Delhi, Paris, 

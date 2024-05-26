@@ -1,0 +1,137 @@
+2024-05-25 12:11:39.635 [http-nio-8080-exec-5] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Communications link failure
+
+The last packet successfully received from the server was 4 milliseconds ago. The last packet sent successfully to the server was 4 milliseconds ago.
+2024-05-25 12:11:39.644 [http-nio-8080-exec-5] ERROR c.a.e.c.GlobalExceptionController - General error: JDBC exception executing SQL [select p1_0.person_id,p1_0.updated_by,p1_0.address_id,p1_0.created_at,p1_0.created_by,p1_0.class_id,p1_0.email,p1_0.mobile_number,p1_0.name,p1_0.password,p1_0.role_id,p1_0.updated_at from person p1_0 where p1_0.email=?] [Communications link failure
+
+The last packet successfully received from the server was 4 milliseconds ago. The last packet sent successfully to the server was 4 milliseconds ago.] [n/a]org.hibernate.exception.JDBCConnectionException: JDBC exception executing SQL [select p1_0.person_id,p1_0.updated_by,p1_0.address_id,p1_0.created_at,p1_0.created_by,p1_0.class_id,p1_0.email,p1_0.mobile_number,p1_0.name,p1_0.password,p1_0.role_id,p1_0.updated_at from person p1_0 where p1_0.email=?] [Communications link failure
+
+The last packet successfully received from the server was 4 milliseconds ago. The last packet sent successfully to the server was 4 milliseconds ago.] [n/a]
+2024-05-26 21:54:40.755 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+EazySchoolProps is annotated with @ConstructorBinding but it is defined as a regular bean which caused dependency injection to fail.
+
+Action:
+
+Update your configuration so that EazySchoolProps is defined via @ConfigurationPropertiesScan or @EnableConfigurationProperties.
+
+2024-05-26 21:55:10.317 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+EazySchoolProps is annotated with @ConstructorBinding but it is defined as a regular bean which caused dependency injection to fail.
+
+Action:
+
+Update your configuration so that EazySchoolProps is defined via @ConfigurationPropertiesScan or @EnableConfigurationProperties.
+
+2024-05-26 21:57:16.691 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+EazySchoolProps is annotated with @ConstructorBinding but it is defined as a regular bean which caused dependency injection to fail.
+
+Action:
+
+Update your configuration so that EazySchoolProps is defined via @ConfigurationPropertiesScan or @EnableConfigurationProperties.
+
+2024-05-26 22:02:30.796 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+EazySchoolProps is annotated with @ConstructorBinding but it is defined as a regular bean which caused dependency injection to fail.
+
+Action:
+
+Update your configuration so that EazySchoolProps is defined via @ConfigurationPropertiesScan or @EnableConfigurationProperties.
+
+2024-05-26 22:02:42.151 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+EazySchoolProps is annotated with @ConstructorBinding but it is defined as a regular bean which caused dependency injection to fail.
+
+Action:
+
+Update your configuration so that EazySchoolProps is defined via @ConfigurationPropertiesScan or @EnableConfigurationProperties.
+
+2024-05-26 22:04:34.212 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Binding to target org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'eazyschool' to com.acme.eazyschool.config.EazySchoolProps failed:
+
+    Property: eazyschool.pageSize
+    Value: "2"
+    Origin: class path resource [application.yaml] - 55:13
+    Reason: Page size must be between 5 and 25
+
+
+Action:
+
+Update your application's configuration
+
+2024-05-26 22:05:10.529 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Binding to target org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'eazyschool' to com.acme.eazyschool.config.EazySchoolProps failed:
+
+    Property: eazyschool.pageSize
+    Value: "2"
+    Origin: class path resource [application.yaml] - 55:13
+    Reason: Page size must be between 5 and 25
+
+
+Action:
+
+Update your application's configuration
+
+2024-05-26 22:09:59.247 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'eazyschool' to com.acme.eazyschool.config.EazySchoolProps:
+
+    Property: eazyschool.branches
+    Value: "NewYork, Delhi, Paris,"
+    Origin: class path resource [application.yaml] - 59:13
+    Reason: java.lang.IllegalStateException: No setter found for property: branches
+
+Action:
+
+Update your application's configuration
+

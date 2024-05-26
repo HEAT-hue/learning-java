@@ -5,6 +5,8 @@ import com.acme.eazyschool.repository.PersonRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +22,22 @@ public class DashboardController {
     @Autowired
     PersonRepository personRepository;
 
+    // Read values from application.properties file
+    @Value("${eazyschool.pageSize}")
+    private int defaultPageSize;
+
+    @Value("${eazyschool.contact.successMessage}")
+    private String message;
+
+    @Autowired
+    Environment environment;
+
     @GetMapping("/dashboard")
     public String displayDashboard(Model model, Authentication authentication, HttpSession httpSession) {
+        System.out.println("Page size is: " + defaultPageSize);
+        System.out.println("Page size is env: " + environment.getProperty("eazyschool.pageSize"));
+        System.out.println("Success message is env: " + environment.getProperty("eazyschool.contact.successMessage"));
+
         // Get Person
         Person person = personRepository.findByEmail(authentication.getName());
 

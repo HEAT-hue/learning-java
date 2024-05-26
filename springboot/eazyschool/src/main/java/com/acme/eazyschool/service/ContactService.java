@@ -1,5 +1,6 @@
 package com.acme.eazyschool.service;
 
+import com.acme.eazyschool.config.EazySchoolProps;
 import com.acme.eazyschool.constants.EazySchoolConstants;
 import com.acme.eazyschool.model.Contact;
 import com.acme.eazyschool.repository.ContactRepository;
@@ -12,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
-
 @Slf4j      // Logging
 @Service    // Generate a bean tho just a stereotype for Holding business logic
 @RequestScope  // Initialized for every http request
@@ -20,6 +20,13 @@ public class ContactService {
 
     // Dependency Injection - DB operations
     private final ContactRepository contactRepository;
+
+    // Get PAGE_SIZE from environment
+//    @Autowired
+//    Environment environment;
+
+    @Autowired
+    EazySchoolProps eazySchoolProps;
 
     @Autowired
     public ContactService(ContactRepository contactRepository) {
@@ -45,8 +52,13 @@ public class ContactService {
 
     // Find all messages with open status with pagination
     public Page<Contact> findMsgsWithOpenStatus(int pageNum, String sortField, String sortDir) {
-        // Number of records to return per request
-        final int PAGE_SIZE = 5;
+
+        // Get default page size from environment, defaulting to 5 if not found
+        //  final short PAGE_SIZE = Short.parseShort(environment.getProperty("eazyschool.pageSize", "5"));
+
+        final short PAGE_SIZE = eazySchoolProps.getPageSize();
+
+        System.out.println(PAGE_SIZE);
 
         // Build sort object
         Sort sort = sortDir.equalsIgnoreCase("desc") ? Sort.by(sortField).descending() : Sort.by(sortField).ascending();

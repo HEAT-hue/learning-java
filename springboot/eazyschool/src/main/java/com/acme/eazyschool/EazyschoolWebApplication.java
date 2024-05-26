@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@SpringBootApplication                                          // Spring boot configuration
 @EnableJpaRepositories("com.acme.eazyschool.repository")        // Spring data JPA config
 @EntityScan("com.acme.eazyschool.model")                        // Set path to entity classes
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")          // Enable Auditing

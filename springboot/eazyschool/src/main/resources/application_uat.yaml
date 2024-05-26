@@ -1,0 +1,19 @@
+# Load this file upon activation of profile
+spring:
+  config:
+    activate:
+      on-profile: uat
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+
+logging:
+  level:
+    root: WARN
+
+# Custom properties
+eazyschool:
+  pageSize: 20
