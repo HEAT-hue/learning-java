@@ -33,4 +33,3 @@ public class EazySchoolProps {
 
     private List<String> branches;
 }
-

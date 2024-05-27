@@ -11,24 +11,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/* Implement custom authentication provider */
 @Component
-@Profile("prod")            // Activate in production environments
-public class UsernamePasswordAuthProvider implements AuthenticationProvider {
+@Profile("!prod")
+public class NoUsernamePasswordAuthProvider implements AuthenticationProvider {
 
-    // Retrieve details of user in DB to check with current details;
+    // Fetch details of person
     @Autowired
     PersonRepository personRepository;
-
-    // Match bcrypt encoded password
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
     /*
      * Retrieve auth object and extract username and password. If successful, return same auth object
@@ -36,19 +30,19 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
      * */
     @Override
     public Authentication authenticate(Authentication authentication) {
-        // Get credentials of user
+        // Get user email from client input
         String email = authentication.getName();
-        String password = authentication.getCredentials().toString();
 
-        // Get existing person object
+        // Retreive person from DB
         Person person = personRepository.findByEmail(email);
 
         // Check if person exists in the DB, and validate password
-        if (null != person && person.getPersonId() > 0 && passwordEncoder.matches(password, person.getPassword())) {
+        if (null != person && person.getPersonId() > 0) {
             return new UsernamePasswordAuthenticationToken(email, null, getGrantedAuthorities(person.getRole()));
         }
         throw new BadCredentialsException("Invalid credentials");
     }
+
 
     /*
      * Specify the auth providers here. If multiple for spring to determine the exact auth provider used
@@ -57,7 +51,6 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
-
 
     //  Return the custom roles for authenticated users for spring to use.
     private List<GrantedAuthority> getGrantedAuthorities(Roles roles) {

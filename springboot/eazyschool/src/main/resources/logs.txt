@@ -135,3 +135,45 @@ Action:
 
 Update your application's configuration
 
+2024-05-27 10:37:55.491 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Config data resource 'class path resource [application_uat.properties]' via location 'application_uat.properties' does not exist
+
+Action:
+
+Check that the value 'application_uat.properties' at class path resource [application.yaml] - 4:13 is correct, or prefix it with 'optional:'
+
+2024-05-27 10:38:26.846 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Config data resource 'class path resource [application_uat.properties]' via location 'application_uat.properties' does not exist
+
+Action:
+
+Check that the value 'application_uat.properties' at class path resource [application.yaml] - 4:13 is correct, or prefix it with 'optional:'
+
+2024-05-27 10:53:34.683 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Config data resource 'class path resource [application_uat.properties]' via location 'application_uat.properties' does not exist
+
+Action:
+
+Check that the value 'application_uat.properties' at class path resource [application.yaml] - 4:13 is correct, or prefix it with 'optional:'
+

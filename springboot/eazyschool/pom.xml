@@ -12,6 +12,7 @@
     <artifactId>eazyschool</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>eazyschool web application</name>
+    <packaging>jar</packaging>
     <description>Eazy school webapp</description>
     <properties>
         <java.version>21</java.version>

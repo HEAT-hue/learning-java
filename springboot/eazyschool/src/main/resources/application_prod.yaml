@@ -2,23 +2,18 @@
 spring:
   config:
     activate:
-      on-profile: uat
-
-  # Show logs in colored mode
-  output:
-    ansi:
-      enabled: ALWAYS
+      on-profile: prod
 
   jpa:
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: false
 
 logging:
   level:
-    root: WARN
+    root: ERROR
 
 # Custom properties
 eazyschool:
-  pageSize: 20
+  pageSize: 13

@@ -1,5 +1,14 @@
-# Disable caching
 spring:
+  #  Define the other properties available in classpath
+  config:
+    import: application_prod.yaml, application_uat.yaml
+
+  # Define the profile active
+  profiles:
+    active: prod
+
+
+  # Disable caching
   thymeleaf:
     cache: false
 
@@ -56,4 +65,4 @@ eazyschool:
   contact:
     pageSize: 5
     successMessage: Your message is saved successfully
-  branches: NewYork, Delhi, Paris, 
+  branches: NewYork, Delhi, Paris, 

@@ -34,10 +34,6 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String displayDashboard(Model model, Authentication authentication, HttpSession httpSession) {
-        System.out.println("Page size is: " + defaultPageSize);
-        System.out.println("Page size is env: " + environment.getProperty("eazyschool.pageSize"));
-        System.out.println("Success message is env: " + environment.getProperty("eazyschool.contact.successMessage"));
-
         // Get Person
         Person person = personRepository.findByEmail(authentication.getName());
 
