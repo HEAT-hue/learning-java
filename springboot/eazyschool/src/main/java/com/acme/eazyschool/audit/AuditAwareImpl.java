@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+// Implement this interface to provide the current auditor i.e. the current user
 @Component("auditAwareImpl")
 public class AuditAwareImpl implements AuditorAware<String> {
 

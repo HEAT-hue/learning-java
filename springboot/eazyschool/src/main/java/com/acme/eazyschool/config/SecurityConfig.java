@@ -27,12 +27,13 @@ public class SecurityConfig {
 
                 // Disable csrf for this endpoint
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/saveMsg")
-                        .ignoringRequestMatchers("/public/**")//                                .requestMatchers(mvcMatcherBuilder.pattern("/profile/**")).permitAll()
+                                .ignoringRequestMatchers("/saveMsg")
+                                .ignoringRequestMatchers("/public/**")//                                .requestMatchers(mvcMatcherBuilder.pattern("/profile/**")).permitAll()
 //                                .requestMatchers(mvcMatcherBuilder.pattern("/contacts/**")).permitAll()
 //                                .requestMatchers(mvcMatcherBuilder.pattern("/courseses/**")).permitAll()
-                        .ignoringRequestMatchers("/api/**")
-                        .ignoringRequestMatchers("/dr/**")
+                                .ignoringRequestMatchers("/api/**")
+                                .ignoringRequestMatchers("/dr/**")
+                                .ignoringRequestMatchers("/monitor/**")
                 )
 
                 .authorizeHttpRequests(auth ->
@@ -41,12 +42,14 @@ public class SecurityConfig {
                                 .requestMatchers(mvcMatcherBuilder.pattern("/displayMessages/**")).hasRole("ADMIN")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/closeMsg/**")).hasRole("ADMIN")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasRole("ADMIN")
+                                .requestMatchers(mvcMatcherBuilder.pattern("/actuator/**")).hasRole("ADMIN")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/api/**")).authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/student/**")).hasRole("STUDENT")
                                 .requestMatchers(mvcMatcherBuilder.pattern("/displayProfile")).authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/updateProfile")).authenticated()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/home")).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern("/monitor/**")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/holidays/**")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/contact")).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern("/dr/**")).authenticated()

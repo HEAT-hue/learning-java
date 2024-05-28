@@ -7,7 +7,6 @@ spring:
   profiles:
     active: prod
 
-
   # Disable caching
   thymeleaf:
     cache: false
@@ -46,6 +45,15 @@ spring:
     ansi:
       enabled: ALWAYS
 
+  application:
+    # Name to identify application in spring-boot server
+    name: Eazy school web app
+  boot:
+    admin:
+      client:
+        # Port of the spring boot admin server
+        url: http://localhost:9000
+
 # Logging
 # Set the severity to determine which logs are printed
 logging:
@@ -66,3 +74,16 @@ eazyschool:
     pageSize: 5
     successMessage: Your message is saved successfully
   branches: NewYork, Delhi, Paris, 
+
+# Springboot actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /monitor
+#        exclude: env
+#
+#  endpoint:
+#    health:
+#      show-details: always
