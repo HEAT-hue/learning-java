@@ -9,7 +9,7 @@
 
     <!-- File Appender - save logs to file -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>/home/heat/Desktop/learning/Java/springboot/eazyschool/src/main/resources/logs.txt</file>
+        <file>/home/heat/Desktop/learning/Java/eazyschool/src/main/resources/logs.txt</file>
 
         <encoder>
             <!-- log pattern -->
