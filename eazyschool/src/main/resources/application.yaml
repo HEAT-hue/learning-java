@@ -1,0 +1,91 @@
+spring:
+  #  Define the other properties available in classpath
+  config:
+    import: application_prod.yaml, application_uat.yaml
+
+  # Set active profile
+  profiles:
+    active: uat
+
+  # Disable caching
+  thymeleaf:
+    cache: false
+
+  # Enable automatic restart
+  devtools:
+    restart:
+      enabled: true
+
+  # Database config
+  datasource:
+    # DATABASE connection
+    url: jdbc:mysql://localhost:3306/eazyschool
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # Base path for HAL explorer
+  data:
+    rest:
+      basePath: /dr
+
+  jpa:
+    # Show sql queries made by spring data jpa
+    show-sql: false
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+      hibernate:
+        format_sql: true
+
+  # Show logs in colored mode
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  application:
+    # Name to identify application in spring-boot server
+    name: Eazy school web app
+  boot:
+    admin:
+      client:
+        # Port of the spring boot admin server
+        url: http://localhost:9000
+
+# Logging
+# Set the severity to determine which logs are printed
+logging:
+  group:
+    eazyschool_error: com.acme.eazyschool.aspects, com.acme.eazyschool.controller
+  level:
+    #    com:
+    #      acme:
+    #        eazyschool:
+    #          aspects: ERROR
+    #          controller: TRACE
+    eazyschool_error: ERROR
+
+# Custom properties
+eazyschool:
+  pageSize: 5
+  contact:
+    pageSize: 5
+    successMessage: Your message is saved successfully
+  branches: NewYork, Delhi, Paris,  
+
+# Springboot actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        # Expose all endpoints
+        include: "*"
+      # Base path to access actuator
+      base-path: /monitor
+#        exclude: env
+#
+#  endpoint:
+#    health:
+#      show-details: always

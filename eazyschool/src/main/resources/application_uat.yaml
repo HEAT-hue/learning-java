@@ -1,0 +1,32 @@
+# Load this file upon activation of profile
+spring:
+  config:
+    activate:
+      on-profile: uat
+
+  # Show logs in colored mode
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+
+logging:
+  level:
+    root: WARN
+
+# Custom properties
+eazyschool:
+  pageSize: 20
+
+# SSL details
+#server:
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: oriseke
+#    key-store-type: PKCS12
+#    key-alias: eazyschool-ssl-cert
